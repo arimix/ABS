@@ -1,0 +1,24 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "restaurantswipe",
+  "main": "./src/worker/index.ts",
+  "compatibility_date": "2026-09-09",
+  "routes": [
+    { "pattern": "forkdis.com", "custom_domain": true },
+    { "pattern": "www.forkdis.com", "custom_domain": true }
+  ],
+  "workers_dev": true,
+  "assets": {
+    "directory": "./dist/client",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": true
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "SWIPE_SESSION", "class_name": "SwipeSession" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["SwipeSession"] }],
+  "observability": {
+    "enabled": true
+  }
+}
